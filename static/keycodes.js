@@ -30,10 +30,13 @@ function updateKeyInfo ( e ) {
         'info-modifiers': mods || '–',
         'info-repeat': e.repeat ? 'Yes' : 'No',
         'info-composing': e.isComposing ? 'Yes' : 'No',
-        'info-capslock': e.getModifierState && e.getModifierState( 'CapsLock' ) ? 'On' : 'Off',
-        'info-numlock': e.getModifierState && e.getModifierState( 'NumLock' ) ? 'On' : 'Off',
-        'info-scrolllock': e.getModifierState && e.getModifierState( 'ScrollLock' ) ? 'On' : 'Off',
         'info-timestamp': Math.round( e.timeStamp ) + ' ms'
+    };
+
+    const lock = {
+        'caps': 'CapsLock',
+        'num': 'NumLock',
+        'scroll': 'Scrolllock'
     };
 
     for ( const id in map ) {
@@ -41,6 +44,17 @@ function updateKeyInfo ( e ) {
         const el = document.getElementById( id );
 
         if ( el ) el.textContent = map[ id ];
+
+    }
+
+    for ( const id in lock ) {
+
+        const el = document.getElementById( `info-${id}lock` );
+
+        if ( el ) el.textContent = (
+            e.getModifierState &&
+            e.getModifierState( lock[ id ] )
+        ) ? 'On' : 'Off';
 
     }
 
