@@ -64,7 +64,7 @@ main {
     margin: 40px 0 0;
     width: 100%;
     max-width: 400px;
-    padding: 28px 18px 18px;
+    padding: 18px;
     text-align: center;
     background: rgba( 0 0 0 / 0.1 );
     box-shadow: 0 2px 12px #0002;
@@ -80,7 +80,7 @@ main {
 
 .key-main-value {
     display: block;
-    margin: 12px 0 8px;
+    margin: 14px 0;
     padding: 8px 18px;
     font-size: 2.2rem;
     font-weight: 900;
@@ -92,7 +92,7 @@ main {
 
 .key-info table {
     width: 100%;
-    margin: 0 auto 14px;
+    margin: 14px 0 0;
     border-collapse: collapse;
     font-size: 1rem;
 }
@@ -116,18 +116,13 @@ main {
 }
 
 .key-info .key-lock td {
+    width: calc( 100% / 3 );
     text-align: center;
 }
 
 .key-info .key-data th {
     width: 40%;
     text-align: left;
-}
-
-.key-info .hint {
-    color: var( --text-secondary );
-    font-size: 0.95rem;
-    font-style: italic;
 }
 
 footer {
