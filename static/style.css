@@ -106,9 +106,14 @@ main {
     text-align: left;
 }
 
-.key-info td:first-child {
-    width: 40%;
+.key-info th {
+    font-weight: 400;
     color: var( --text-secondary );
+}
+
+.key-info .key-data th {
+    width: 40%;
+    text-align: left;
 }
 
 .key-info code {

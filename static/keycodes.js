@@ -28,7 +28,12 @@ function updateKeyInfo ( e ) {
         'info-which': e.which,
         'info-location': e.location,
         'info-modifiers': mods || '–',
-        'info-repeat': e.repeat ? 'Yes' : 'No'
+        'info-repeat': e.repeat ? 'Yes' : 'No',
+        'info-composing': e.isComposing ? 'Yes' : 'No',
+        'info-capslock': e.getModifierState && e.getModifierState( 'CapsLock' ) ? 'On' : 'Off',
+        'info-numlock': e.getModifierState && e.getModifierState( 'NumLock' ) ? 'On' : 'Off',
+        'info-scrolllock': e.getModifierState && e.getModifierState( 'ScrollLock' ) ? 'On' : 'Off',
+        'info-timestamp': Math.round( e.timeStamp ) + ' ms'
     };
 
     for ( const id in map ) {
