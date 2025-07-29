@@ -1,81 +1,102 @@
-// Helper function for readable modifier display
-function getModifiers(e) {
-    return [
-        e.ctrlKey ? 'Ctrl' : null,
-        e.shiftKey ? 'Shift' : null,
-        e.altKey ? 'Alt' : null,
-        e.metaKey ? (navigator.platform.startsWith('Mac') ? 'Cmd' : 'Meta') : null,
-        e.getModifierState && e.getModifierState('Fn') ? 'Fn' : null
-    ].filter(Boolean).join(' + ');
+// Returns a readable string of all active modifier keys
+function getModifiers ( e ) {
+
+    const mods = [
+        e.ctrlKey && 'Ctrl',
+        e.shiftKey && 'Shift',
+        e.altKey && 'Alt',
+        e.metaKey && ( navigator.platform.startsWith( 'Mac' ) ? 'Cmd' : 'Meta' ),
+        e.getModifierState?.( 'Fn' ) && 'Fn'
+    ].filter( Boolean );
+
+    return mods.join( ' + ' );
+
 }
 
-// Main function for displaying key data
-function showKeyInfo(e) {
-    e.preventDefault();
-    e.stopPropagation();
+// Updates all key info fields in the UI
+function updateKeyInfo ( e ) {
 
-    const main = document.querySelector('main');
-    if (!main) return;
+    const key = e.key === ' ' ? 'Space' : e.key;
+    const mods = getModifiers( e );
+    const combo = mods && e.key.length === 1 ? `${mods} + ${key}` : ( mods || key );
 
-    // Gather all the information
-    const keyInfo = [
-        { label: 'Key', value: e.key },
-        { label: 'Code', value: e.code },
-        { label: 'KeyCode', value: e.keyCode },
-        { label: 'Which', value: e.which },
-        { label: 'Location', value: e.location },
-        { label: 'Modifiers', value: getModifiers(e) || '–' },
-        { label: 'Repeat', value: e.repeat ? 'Yes' : 'No' }
+    const map = {
+        'main-key': combo,
+        'info-key': key,
+        'info-code': e.code,
+        'info-keycode': e.keyCode,
+        'info-which': e.which,
+        'info-location': e.location,
+        'info-modifiers': mods || '–',
+        'info-repeat': e.repeat ? 'Yes' : 'No'
+    };
+
+    for ( const id in map ) {
+
+        const el = document.getElementById( id );
+
+        if ( el ) el.textContent = map[ id ];
+
+    }
+
+}
+
+// Blocks as many default and OS actions as possible in the browser
+function blockAll ( e ) {
+
+    const forbidden = [
+        'PrintScreen', 'ContextMenu',
+        'F1', 'F3', 'F4', 'F5', 'F11', 'F12',
+        'Meta', 'OS', 'Super',
+        'LaunchApplication1', 'LaunchApplication2'
     ];
 
-    // Build output HTML
-    main.innerHTML = `
-        <section class="key-info">
-            <div class="key-main">
-                <span class="key-main-label">Key</span>
-                <span class="key-main-value">${e.key === ' ' ? 'Space' : e.key}</span>
-            </div>
-            <table>
-                <tbody>
-                    ${keyInfo.map(info => `
-                        <tr>
-                            <td>${info.label}</td>
-                            <td><code>${info.value}</code></td>
-                        </tr>
-                    `).join('')}
-                </tbody>
-            </table>
-            <div class="hint">Drücke eine andere Taste…</div>
-        </section>
-    `;
-}
+    if (
+        e.ctrlKey || e.altKey || e.metaKey ||
+        forbidden.includes( e.key ) ||
+        forbidden.includes( e.code )
+    ) {
 
-// Intercept all keystrokes
-['keydown', 'keypress', 'keyup'].forEach(type => {
-    window.addEventListener(type, e => {
-        // Only display on keydown, but block all events
-        if (type === 'keydown') showKeyInfo(e);
         e.preventDefault();
         e.stopPropagation();
-        return false;
-    }, true);
-});
 
-// Block context menu and other actions
-window.addEventListener('contextmenu', e => {
+        return false;
+
+    }
+
     e.preventDefault();
     e.stopPropagation();
-    return false;
-}, true);
 
-// Initial note
-document.addEventListener('DOMContentLoaded', () => {
-    const main = document.querySelector('main');
-    if (main) {
-        main.innerHTML = `
-            <section class="key-info">
-                <div class="hint">Drücke eine beliebige Taste…</div>
-            </section>
-        `;
-    }
-});
+    return false;
+
+}
+
+// Listen for all key events and block actions
+[ 'keydown', 'keypress', 'keyup' ].forEach( type => {
+
+    window.addEventListener( type, e => {
+
+        if ( type === 'keydown' ) updateKeyInfo( e );
+
+        blockAll( e );
+
+    }, true );
+
+} );
+
+// Set initial UI state on load
+document.addEventListener( 'DOMContentLoaded', () => {
+
+    [
+        'main-key', 'info-key', 'info-code',
+        'info-keycode', 'info-which', 'info-location',
+        'info-modifiers', 'info-repeat'
+    ].forEach( id => {
+
+        const el = document.getElementById( id );
+
+        if ( el ) el.textContent = '–';
+
+    } );
+
+} );
