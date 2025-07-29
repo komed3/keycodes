@@ -1,25 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#31af91" />
-        <title>Keyboard Codes — komed3</title>
-        <link rel="icon" href="./favicon.ico" type="image/x-icon" sizes="256x256">
-        <link rel="stylesheet" href="./static/style.min.css">
-        <script src="./static/keycodes.min.js" defer></script>
-    </head>
-    <body>
-        <header>
-            <h1>Keyboard Codes</h1>
-            <h2>Press any key to see its code</h2>
-        </header>
-        <main></main>
-        <footer>
-            <p>
-                Created by <a href="https://komed3.de" target="_blank" rel="noopener noreferrer">Paul Köhler (komed3)</a> &mdash;
-                Source code available on <a href="https://github.com/komed3/keycodes" target="_blank" rel="noopener noreferrer">GitHub</a>
-            </p>
-        </footer>
-    </body>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#31af91" />
+    <title>Keyboard Codes — komed3</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" sizes="256x256">
+    <link rel="stylesheet" href="./static/style.css">
+    <script src="./static/keycodes.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Keyboard Codes</h1>
+        <h2>Press any key …</h2>
+    </header>
+    <main>
+        <section class="key-info">
+            <div class="key-main">
+                <span class="key-main-label">Key</span>
+                <span class="key-main-value" id="main-key">–</span>
+            </div>
+            <table>
+                <tbody>
+                    <tr><td>Key</td><td><code id="info-key">–</code></td></tr>
+                    <tr><td>Code</td><td><code id="info-code">–</code></td></tr>
+                    <tr><td>KeyCode</td><td><code id="info-keycode">–</code></td></tr>
+                    <tr><td>Which</td><td><code id="info-which">–</code></td></tr>
+                    <tr><td>Location</td><td><code id="info-location">–</code></td></tr>
+                    <tr><td>Modifiers</td><td><code id="info-modifiers">–</code></td></tr>
+                    <tr><td>Repeat</td><td><code id="info-repeat">–</code></td></tr>
+                </tbody>
+            </table>
+            <div class="hint" id="hint">Press any key …</div>
+        </section>
+    </main>
+    <footer>
+        <p>
+            <span class="footer-author">Build with ❤ by Paul Köhler (<a href="https://komed3.de" target="_blank" rel="noopener noreferrer">komed3</a>)</span>
+            <span class="footer-sep">//</span>
+            <span class="footer-source">Source: <a href="https://github.com/komed3/keycodes" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+        </p>
+    </footer>
+</body>
 </html>
