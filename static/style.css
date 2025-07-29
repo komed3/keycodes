@@ -71,10 +71,6 @@ main {
     border-radius: 14px;
 }
 
-.key-main {
-    margin-bottom: 24px;
-}
-
 .key-main-label {
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -84,7 +80,7 @@ main {
 
 .key-main-value {
     display: block;
-    margin: 12px 0 0;
+    margin: 12px 0 8px;
     padding: 8px 18px;
     font-size: 2.2rem;
     font-weight: 900;
