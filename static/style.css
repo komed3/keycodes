@@ -9,7 +9,8 @@ body {
     margin: 48px;
     font-family: 'Share Tech Mono', monospace;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.4;
+    text-underline-offset: 20%;
     color: #fff;
     background-color: #31af91;
 }
